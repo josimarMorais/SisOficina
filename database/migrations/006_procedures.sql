@@ -164,14 +164,26 @@ set term ;^
 
 
 
+
 --REATIVAR UM CLIENTE:
 set term ^;
 create or alter procedure reativar_cliente(
-    
+        p_codigo dm_codigo
 )
-
+ as 
+ begin
+    update cliente set ativo = 'S' where codigo = :p_codigo and ativo = 'N';
+    
+    if (row_count = 0) then
+    begin
+        if(exists(select 1 from cliente where codigo = :p_codigo))then
+    
+            exception exc_cli_ja_ativo;
+        else
+            exception exc_cliente_nao_encontrado;
+    end
+ end^
 set term ;^
-
 
 
 
