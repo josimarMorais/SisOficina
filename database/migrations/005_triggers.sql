@@ -1,8 +1,3 @@
-/*==============================================================================
-                    CRIAÇÃO DAS SEQUENCES E TRIGGERS
-================================================================================*/
-create sequence seq_cliente;
-
 set term ^;
 create or alter trigger cliente_bi for cliente
 active before insert position 0
@@ -14,10 +9,6 @@ as
 set term ;^
 
 
-
-
- 
-create sequence seq_veiculo;
 
 set term ^;
 create or alter trigger veiculo_bi for veiculo
@@ -31,10 +22,6 @@ set term ;^
 
 
 
-
-
-create sequence seq_status_ordem;
-
 set term^;
 create or alter trigger status_ordem_bi for status_ordem
 active before insert position 0
@@ -46,10 +33,6 @@ as
 set term ;^
 
 
-
-
-
-create sequence seq_servico;
 
 set term ^;
 create or alter trigger servico_bi for servico
@@ -63,10 +46,6 @@ set term ;^
 
 
 
-
-
-create sequence seq_peca;
-
 set term ^;
 create or alter trigger peca_bi for peca
 active before insert position 0
@@ -78,10 +57,6 @@ as
 set term ;^
 
 
-
-
-
-create sequence seq_ordem_servico;
 
 set term ^;
 create or alter trigger ordem_servico_bi for ordem_servico
@@ -95,10 +70,6 @@ set term ;^
 
 
 
-
-
-create sequence seq_item_servico;
-
 set term ^;
 create or alter trigger item_servico_bi for item_servico
 active before insert position 0
@@ -111,10 +82,6 @@ set term ;^
 
 
 
-
-
-create sequence seq_item_peca;
-
 set term ^;
 create or alter trigger item_peca_bi for item_peca
 active before insert position 0
@@ -124,10 +91,6 @@ as
             new.codigo = gen_id(seq_item_peca, 1);
     end^
 set term ;^
-
-
-
-
 
 
 set term ^;
@@ -161,22 +124,6 @@ set term ;^
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-/*==============================================================================
-                    CRIAÇÃO DAS EXPECTION COM AS TRIGGERS
-================================================================================*/
-create exception exc_veiculo_cliente 'O veículo informado não pertence ao cliente. ';
-
 set term ^;
 create or alter trigger ordem_servico_biu for ordem_servico
 active before insert or update position 0
@@ -195,7 +142,6 @@ as
 set term ;^
 
 
-create exception exc_estoque_insuficiente 'Estoque insuficiente para a peça informada. ';
 
 set term ^;
 create or alter trigger item_peca_biu for item_peca
@@ -212,53 +158,6 @@ as
             exception exc_estoque_insuficiente;
     end^
 set term ;^
-
-create exception exc_cliente_nao_encontrado 'Cliente não encontrado.';
-
-create exception exc_veiculo_nao_encontrado 'Veículo não encontrado.';
-
-create exception exc_ordem_nao_encontrada 'Ordem de serviço não encontrada.';
-
-create exception exc_servico_nao_encontrado 'Serviço não encontrado.';
-
-create exception exc_servico_inativo 'O serviço informado está inativo.';
-
-create exception exc_ordem_encerrada 'Não é permitido alterar uma ordem finalizada ou cancelada.';
-
-create exception exc_peca_nao_encontrada 'Peça não encontrada.';
-
-create exception exc_peca_inativa 'A peça informada está inativa.';
-
-create exception exc_ordem_nao_cancelada 'Apenas ordens canceladas podem ser reabertas.';
-
-create exception exc_ordem_nao_finalizada 'Apenas ordens finalizadas podem ser refeitas.';
-
-create exception exc_ordem_normal 'Tipo de ordem de serviço Normal não pode ter origem informada. ';
-
-create exception exc_ordem_origem_obrigatoria 'Tipo de ordem de serviço Garantia ou Duplicidade exige origem informada. ';
-
-create exception exc_ordem_auto_referencia 'Ordem de serviço não pode apontar para si mesma. ';
-
-create exception exc_ordem_imutavel 'O tipo da ordem e sua ordem de origem não podem ser alterados após a criação. ';
-
-create exception ex_cli_nome_invalido 'Informe o nome do cliente';
-
-create exception ex_cli_cpf_invalido 'Informe o CPF do cliente';
-
-create exception ex_cli_cpf_duplicado 'CPF já cadastrado';
-
-create exception ex_cli_uf_invalida 'A UF deve possuir exatamente 2 caracteres';
-
-create exception ex_cli_nao_encontrado 'Cliente não encontrado';
-
-create exception ex_cli_ja_inativo 'Cliente já está inativo';
-
-create exception ex_cli_ordem_aberta 'Cliente possui ordem de serviço aberta';
-
-
-
-
-
 
 
 
