@@ -43,3 +43,5 @@ create exception ex_cli_nao_encontrado 'Cliente não encontrado';
 create exception ex_cli_ja_inativo 'Cliente já está inativo';
 
 create exception ex_cli_ordem_aberta 'Cliente possui ordem de serviço aberta';
+
+create exception ex_cli_ja_ativo 'Cliente já está ativo';
