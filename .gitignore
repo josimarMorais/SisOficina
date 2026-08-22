@@ -1,2 +1,2 @@
-*.FDB
-*.fdb
+#Banco Firebird local
+/banco/*.fdb
