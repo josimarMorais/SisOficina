@@ -35,3 +35,6 @@ insert into veiculo
 select codigo,'DEF4G56','Chevrolet','Onix',2020,'Branco','S'
 from cliente where cpf = '98765432100';
 
+select codigo, nome, ativo
+from cliente
+order by codigo;
