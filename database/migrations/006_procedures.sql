@@ -3,7 +3,7 @@
 ================================================================================*/
 
 --CADASTRAR UM NOVO CLIENTE
-set term ^;
+set term ^ ;
 
 create or alter procedure cadastrar_cliente (
     p_nome             dm_nome,
@@ -50,7 +50,7 @@ begin
     returning codigo
     into :cod_cliente;
 end^
-set term ;^
+set term ; ^
 
 
 
@@ -62,7 +62,7 @@ set term ;^
 
 
 --ALTERAR UM CADASTRO DE UM CLIENTE:
-set term ^;
+set term ^ ;
 create or alter procedure alterar_cliente (
     p_codigo           dm_codigo,
     p_nome             dm_nome,
@@ -117,7 +117,7 @@ begin
         email = trim(:p_email)
     where codigo = :p_codigo;
 end^
-
+set term ; ^
 
 
 
@@ -128,7 +128,7 @@ end^
 
 
 --INATIVAR UM CLIENTE: 
-set term ^;
+set term ^ ;
 create or alter procedure inativar_cliente (
     p_codigo dm_codigo
 )
@@ -153,8 +153,7 @@ begin
 
     update cliente set ativo = 'N' where codigo = :p_codigo;
 end^
-
-set term ;^
+set term ; ^
 
 
 
@@ -166,7 +165,7 @@ set term ;^
 
 
 --REATIVAR UM CLIENTE:
-set term ^;
+set term ^ ;
 create or alter procedure reativar_cliente(
         p_codigo dm_codigo
 )
@@ -177,13 +176,12 @@ create or alter procedure reativar_cliente(
     if (row_count = 0) then
     begin
         if(exists(select 1 from cliente where codigo = :p_codigo))then
-    
-            exception exc_cli_ja_ativo;
+            exception ex_cli_ja_ativo;
         else
             exception exc_cliente_nao_encontrado;
     end
  end^
-set term ;^
+set term ; ^
 
 
 
@@ -195,7 +193,7 @@ set term ;^
 
 
 -- ABRIR UMA NOVA ORDEM DE SERVIÇO:
-set term ^;
+set term ^ ;
 create or alter procedure abrir_ordem_servico
 (nCod_cliente dm_codigo, nCod_veiculo dm_codigo, nKm_entrada dm_km, sDefeito_Relatado dm_texto_longo)
 
@@ -218,7 +216,7 @@ as
         returning codigo into :nCod_ordem; 
         
     end^
-set term ;^
+set term ; ^
 
 
 
@@ -231,7 +229,7 @@ set term ;^
 
 
 -- ADICIONAR UM NOVO SERVIÇO A ORDEM DE SERVIÇO:
-set term ^; 
+set term ^ ; 
 create or alter procedure adicionar_servico_ordem( 
     nCod_ordem dm_codigo, nCod_servico dm_codigo, nQuantidade dm_quantidade, 
     sObservacao dm_texto_longo
@@ -262,7 +260,7 @@ nCod_item dm_codigo
             values(:nCod_ordem, :nCod_servico, :nQuantidade, :vValor_servico, :sObservacao)
             returning codigo into :nCod_item; 
     end^
-set term ;^
+set term ; ^
 
 
 
@@ -275,7 +273,7 @@ set term ;^
 
 
 --ADICIONAR UMA NOVA PEÇA A ORDEM DE SERVIÇO:
-set term ^;
+set term ^ ;
 create or alter procedure adicionar_peca_ordem (
     nCod_ordem dm_codigo, nCod_peca dm_codigo, nQuantidade dm_quantidade,
     nDesconto_percentual dm_percentual, sObservacao dm_texto_longo
@@ -328,7 +326,7 @@ begin
     /* Realiza a baixa do estoque */
     update peca set estoque = estoque - :nQuantidade where codigo = :nCod_peca;
 end^
-set term ;^
+set term ; ^
 
 
 
@@ -340,7 +338,7 @@ set term ;^
 
 
 --CALCULAR O VALOR TOTAL DA ORDEM DE SERVIÇO:
-set term ^;
+set term ^ ;
 create or alter procedure calcular_total_ordem
 (
     nCod_ordem dm_codigo
@@ -386,7 +384,7 @@ begin
     /* Calcula o valor total geral da Ordem de Serviço */
     nValor_total_geral = nValor_total_servicos + nValor_total_pecas;
 end^
-set term ;^
+set term ; ^
 
 
 
@@ -398,7 +396,7 @@ set term ;^
 
 
 -- ATUALIZAR O VALOR_TOTAL DA ORDEM DE SERVICO:
-set term ^;
+set term ^ ;
 create or alter procedure atualizar_total_ordem
 (
     nCod_ordem dm_codigo
@@ -433,7 +431,7 @@ begin
     set valor_total = :nValor_total
     where codigo = :nCod_ordem;
 end^
-set term ;^
+set term ; ^
 
 
 
@@ -445,7 +443,7 @@ set term ;^
 
 
 -- FECHAR ORDEM DE SERVIÇO:
-set term ^;
+set term ^ ;
 create or alter procedure fechar_ordem_servico
 (
     nCod_ordem dm_codigo
@@ -484,8 +482,7 @@ begin
         data_fechamento = current_date
     where codigo = :nCod_ordem;
 end^
-
-set term ;^
+set term ; ^
 
 
 
@@ -497,7 +494,7 @@ set term ;^
 
 
 -- FECHAR ORDEM DE SERVIÇO:
-set term ^;
+set term ^ ;
     create or alter procedure cancelar_ordem_servico(
     nCod_ordem dm_codigo
 )
@@ -535,7 +532,7 @@ as
         where codigo = :nCod_ordem;
     
     end^
-set term ;^
+set term ; ^
 
 
 
@@ -547,8 +544,7 @@ set term ;^
 
 
 -- REABRIR UMA ORDEM DE SERVIÇO (EPENAS ORDENS CANCELADAS):
-set term ^;
-
+set term ^ ;
 create or alter procedure reabrir_ordem_servico(
     nCod_ordem dm_codigo
  )
@@ -605,7 +601,7 @@ as
     where codigo = :nCod_ordem;
      
     end^
-set term ;^
+set term ; ^
 
 
 
@@ -617,8 +613,7 @@ set term ;^
 
 
 -- REFAZER UMA ORDEM DE SERVIÇO COMO GARANTIA:
-set term ^;
-
+set term ^ ;
 create or alter procedure refazer_ordem_garantia
 (
     nCod_ordem_original dm_codigo,
@@ -701,7 +696,7 @@ begin
         where codigo = :vCod_peca;
      end
 end^
-set term ;^
+set term ; ^
 
 
 
@@ -713,8 +708,7 @@ set term ;^
 
 
 -- DUPLICAR UMA ORDEM DE SERVIÇO:
-set term ^;
-
+set term ^ ;
 create or alter procedure duplicar_ordem_servico
 (
     nCod_ordem_original dm_codigo,
@@ -800,7 +794,7 @@ begin
         where codigo = :vCod_peca;
      end
 end^
-set term ;^
+set term ; ^
 
 
 
