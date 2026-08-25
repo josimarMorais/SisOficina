@@ -45,3 +45,17 @@ create exception ex_cli_ja_inativo 'Cliente já está inativo';
 create exception ex_cli_ordem_aberta 'Cliente possui ordem de serviço aberta';
 
 create exception ex_cli_ja_ativo 'Cliente já está ativo';
+
+create exception ex_vei_cliente_inativo 'Cliente está inativo';
+
+create exception ex_vei_placa_invalida 'Placa inválida';
+
+create exception ex_vei_placa_duplicada 'Placa já cadastrada';
+
+create exception ex_vei_marca_invalida 'Marca inválida';
+
+create exception ex_vei_modelo_invalido 'Modelo inválido';
+
+create exception ex_vei_ano_invalido 'Ano de fabricação inválido';
+
+create exception ex_vei_cor_invalida 'Cor inválida';
