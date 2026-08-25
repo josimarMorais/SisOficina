@@ -887,6 +887,12 @@ begin
     if (p_ano_fabricacao is null) then
         exception ex_vei_ano_invalido;
     
+    -- Verifica se o ano de fabricação é válido
+    if (p_ano_fabricacao < 1900 or 
+        p_ano_fabricacao > extract(year from current_date)) then
+            exception ex_vei_ano_invalido;
+    
+    
     -- Verifica se a cor é nula
     if (p_cor is null) then
         exception ex_vei_cor_invalida;
@@ -895,9 +901,7 @@ begin
     if (trim(p_cor) = '') then
         exception ex_vei_cor_invalida;
     
-    
-    
-    
+
 end^
 set term ; ^
 
